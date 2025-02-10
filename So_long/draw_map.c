@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:55:59 by antbonin          #+#    #+#             */
-/*   Updated: 2025/01/22 18:41:45 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:08:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ void	init_values(t_game *game)
 		{
 			if (game->map[y][x] == 'C')
 				game->collectibles_remaining++;
-			else if (game->map[y][x] == 'E')
-			{
-				game->door_x = x;
-				game->door_y = y;
-			}
 			else if (game->map[y][x] == 'P')
 			{
 				game->player_x = x;

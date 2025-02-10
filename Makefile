@@ -1,10 +1,14 @@
-.PHONY := all clean fclean re valgrind init
+.PHONY := all clean fclean re init
 
-NAME := process
-
+NAME := so_long
 CC := cc
+CFLAGS := -Werror -Wextra -Wall -g3 
+LIBFT_DIR = libft/
+LIBFT = $(LIBFT_DIR)libft.a
 
-CFLAGS := -Werror -Wextra -Wall -g3
+OBJ_DIR = obj/
+OBJ_SO_LONG = $(OBJ_DIR)So_long/
+OBJ_GNL = $(OBJ_DIR)gnl/
 
 SRCS := So_long/draw_map.c \
 	So_long/handle_keypress.c \
@@ -13,32 +17,38 @@ SRCS := So_long/draw_map.c \
 	So_long/so_long.c \
 	So_long/textures.c \
 	So_long/check_wall.c \
+	So_long/init_game.c \
 	gnl/get_next_line.c \
 	gnl/get_next_line_utils.c \
-	libft/ft_checksign.c \
-	libft/ft_printf.c \
-	libft/ft_printspecifier.c \
-	libft/ft_putchar_fd.c \
-	libft/ft_putstr_fd.c \
-	libft/ft_strchr.c \
 
-OBJS := $(SRCS:.c=.o)
+OBJS := $(patsubst So_long/%.c,$(OBJ_SO_LONG)%.o,$(filter So_long/%.c,$(SRCS))) \
+        $(patsubst gnl/%.c,$(OBJ_GNL)%.o,$(filter gnl/%.c,$(SRCS)))
 
+DEPS = $(LIBFT_DIR)ressource/libft.h
 LIBS := -Lminilibx-linux -lmlx_Linux -lX11 -lXext
+all: $(LIBFT) $(NAME)
 
-all: $(NAME)
+$(NAME): $(OBJS) ./So_long/so_long.h
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBFT) -o $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
-
-%.o: %.c 
+$(OBJ_SO_LONG)%.o: So_long/%.c $(DEPS)
+	@mkdir -p $(OBJ_SO_LONG)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(OBJ_GNL)%.o: gnl/%.c
+	@mkdir -p $(OBJ_GNL)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIBFT): $(LIBFT_DIR)libft/*.c $(DEPS)
+	@make -C $(LIBFT_DIR) --no-print-directory
+
 clean:
-	rm -f $(OBJS)
+	@rm -rf $(OBJ_DIR)
+	@make clean -C $(LIBFT_DIR) --no-print-directory
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT_DIR) --no-print-directory
 
 re: fclean all
 

@@ -6,13 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:13:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/01/27 14:16:59 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:12:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minilibx-linux/mlx.h"
+#include "../libft/ressource/libft.h"
 #include "so_long.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 int	cleanup_textures(t_game *game)
@@ -71,7 +71,7 @@ int	init_window_and_textures(t_game *game)
 		return (1);
 	if (!init_textures(game))
 	{
-		perror("Error loading textures\n");
+		ft_putendl_fd("Error\n", 2);
 		cleanup_textures(game);
 		return (1);
 	}

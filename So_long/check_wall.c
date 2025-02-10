@@ -6,14 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:31:56 by antbonin          #+#    #+#             */
-/*   Updated: 2025/01/23 11:33:48 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:11:57 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../gnl/get_next_line.h"
+#include "../libft/ressource/libft.h"
 #include "so_long.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 size_t	check_wall_top(t_game *game)
 {
@@ -23,7 +22,7 @@ size_t	check_wall_top(t_game *game)
 	while (game->map[0][x] != '\0' && game->map[0][x] != '\n')
 	{
 		if (game->map[0][x] != '1')
-			return (perror("Error\nWall missing on top\n"), 1);
+			return (ft_putendl_fd("Error\n", 2), 1);
 		x++;
 	}
 	return (0);
@@ -38,7 +37,7 @@ size_t	check_wall_bot(t_game *game, size_t lines)
 	{
 		if (game->map[lines - 1][x] != '1')
 		{
-			perror("Error\nWall missing on bottom\n");
+			ft_putendl_fd("Error\n", 2);
 			return (1);
 		}
 		x++;
@@ -55,7 +54,7 @@ size_t	check_wall(t_game *game, size_t lines)
 	{
 		if (game->map[y][0] != '1')
 		{
-			perror("Error\nWall missing on left\n");
+			ft_putendl_fd("Error\n", 2);
 			return (1);
 		}
 		y++;
@@ -65,7 +64,7 @@ size_t	check_wall(t_game *game, size_t lines)
 	{
 		if (game->map[y][ft_strlen(game->map[y]) - 1] != '1')
 		{
-			perror("Error\nWall missing on right\n");
+			ft_putendl_fd("Error\n", 2);
 			return (1);
 		}
 		y++;

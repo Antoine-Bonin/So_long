@@ -6,26 +6,37 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:22:10 by antbonin          #+#    #+#             */
-/*   Updated: 2025/01/16 13:50:18 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:05:01 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../gnl/get_next_line.h"
-#include "../libft/libft.h"
+#include "../libft/ressource/libft.h"
 #include "so_long.h"
 
-int	free_tab(char **tab)
+char	**copy_map(char **map, int height)
 {
-	int	i;
+	char	**copy;
+	int		i;
 
+	copy = malloc(sizeof(char *) * (height + 1));
+	if (!copy)
+		return (NULL);
 	i = 0;
-	while (tab[i])
+	while (i < height)
 	{
-		free(tab[i]);
+		copy[i] = ft_strdup(map[i]);
+		if (!copy[i])
+		{
+			while (i > 0)
+				free(copy[--i]);
+			free(copy);
+			return (NULL);
+		}
 		i++;
 	}
-	free(tab);
-	return (1);
+	copy[height] = NULL;
+	return (copy);
 }
 
 char	**mapping(int fd, size_t lines)
@@ -62,7 +73,7 @@ char	**load_map(int fd, size_t lines)
 	tab = mapping(fd, lines);
 	if (!tab)
 	{
-		perror("Error mapping file");
+		ft_putendl_fd("Error\n", 2);
 		close(fd);
 	}
 	return (tab);

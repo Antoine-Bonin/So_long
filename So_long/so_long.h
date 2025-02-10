@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:23:10 by antbonin          #+#    #+#             */
-/*   Updated: 2025/01/24 17:52:47 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:51:20 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ typedef struct s_game
 	int		map_height;
 	int		player_x;
 	int		player_y;
-	int		player2_x;
-	int		player2_y;
 	void	*wall_img;
 	void	*floor_img;
 	int		img_width;
@@ -33,30 +31,42 @@ typedef struct s_game
 	void	*collectible_img;
 	void	*character_img;
 	int		collectibles_remaining;
-	int		door_x;
-	int		door_y;
 	void	*door_open;
 	int		total_moves;
 	void	*exit_img;
 	int		count_player;
 	int		count_exit;
 	int		count_collectible;
-	int		found_exit;
 	int		found_collectibles;
 	int		reached_exit;
 }			t_game;
 
+/************************map************************************/
+
 char		**mapping(int fd, size_t lines);
-int			free_tab(char **tab);
-int			validate_map(t_game *game, size_t lines, int fd);
 char		**load_map(int fd, size_t lines);
+char		**copy_map(char **map, int height);
 void		draw_map(t_game *game);
+
+/************************mlx*************************************/
+
 int			handle_keypress(int keysym, t_game *game);
 void		init_values(t_game *game);
 int			init_window_and_textures(t_game *game);
 int			cleanup_textures(t_game *game);
+
+/*************************parsing*********************************/
+
+int			validate_map(t_game *game, size_t lines, int fd);
 size_t		check_wall_top(t_game *game);
 size_t		check_wall_bot(t_game *game, size_t lines);
 size_t		check_wall(t_game *game, size_t lines);
 void		flood_fill(char **map, int x, int y, t_game *game);
+
+/***************************init************************************/
+
+int			check_map_valid(t_game *game, char **map_copy);
+int			setup_game(t_game *game, char *map_path);
+
+/*******************************************************************/
 #endif

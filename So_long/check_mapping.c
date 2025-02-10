@@ -6,15 +6,13 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:35:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/01/25 17:20:49 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:14:36 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../gnl/get_next_line.h"
-#include "../libft/libft.h"
+#include "../libft/ressource/libft.h"
 #include "so_long.h"
-#include "stdio.h"
-#include <stdlib.h>
 
 size_t	init_count(t_game *game)
 {
@@ -39,7 +37,7 @@ size_t	init_count(t_game *game)
 	}
 	if (game->count_player != 1 || game->count_exit != 1
 		|| game->count_collectible < 1)
-		return (perror("Error\ncheck P == 1\nE == 1\nC > 0\nin your map\n"), 1);
+		return (ft_putendl_fd("Error\n", 2), 1);
 	return (0);
 }
 
@@ -56,7 +54,7 @@ size_t	check_characters(char **tab, size_t lines)
 		{
 			if (ft_strchr(INVALID, tab[y][x]) != NULL)
 			{
-				perror("Error\n Invalid character in map\n");
+				ft_putendl_fd("Error\n", 2);
 				return (1);
 			}
 			x++;
@@ -75,12 +73,12 @@ size_t	check_mapping(char **tab, size_t lines)
 	{
 		if (ft_strlen(tab[0]) != ft_strlen(tab[y]))
 		{
-			perror("Error\n 2 lines do not match lengths\n");
+			ft_putendl_fd("Error\n", 2);
 			return (1);
 		}
 		if (ft_strlen(tab[y]) == lines)
 		{
-			perror("Error Map is not rectangular\n");
+			ft_putendl_fd("Error\n", 2);
 			return (1);
 		}
 		y++;
@@ -99,7 +97,12 @@ void	flood_fill(char **map, int x, int y, t_game *game)
 		game->reached_exit = 1;
 		return ;
 	}
-	if (map[x][y] != 'C')
+	if (map[x][y] == 'C')
+	{
+		game->found_collectibles++;
+		map[x][y] = '2';
+	}
+	if (map[x][y] != 'E')
 		map[x][y] = '2';
 	flood_fill(map, x + 1, y, game);
 	flood_fill(map, x - 1, y, game);
