@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:57:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 17:14:04 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:41:33 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	move_player(int keysym, t_game *game)
 		game->player_x--;
 	if (keysym == XK_d || keysym == XK_Right)
 		game->player_x++;
-	if (game->map[game->player_y][game->player_x] == '1')
+	if (game->map[game->player_y][game->player_x] == '1'
+		|| (game->map[game->player_y][game->player_x] == 'E'
+			&& game->collectibles_remaining != 0))
 	{
 		game->player_x = old_x;
 		game->player_y = old_y;
@@ -45,7 +47,6 @@ int	close_check(int keysym, t_game *game)
 	if (keysym == XK_Escape || keysym == 17)
 	{
 		cleanup_textures(game);
-		free_tab(game->map);
 		ft_printf("You left the game\n");
 		exit(0);
 	}
@@ -66,7 +67,6 @@ int	handle_keypress(int keysym, t_game *game)
 	{
 		if (game->map[game->player_y][game->player_x] == 'E')
 		{
-			free_tab(game->map);
 			cleanup_textures(game);
 			ft_printf("You won\n");
 			exit(0);

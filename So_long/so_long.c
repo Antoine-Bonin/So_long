@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:20:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 17:47:18 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:38:45 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 int	handle_destroy(t_game *game)
 {
-	free_tab(game->map);
 	cleanup_textures(game);
 	ft_printf("You left the game");
 	exit(0);

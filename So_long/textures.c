@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:13:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 17:12:27 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:35:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	cleanup_textures(t_game *game)
 		mlx_destroy_display(game->mlx_ptr);
 		free(game->mlx_ptr);
 	}
+	free_tab(game->map);
 	return (1);
 }
 
@@ -59,6 +60,7 @@ int	init_textures(t_game *game)
 		|| !game->character_img || !game->door_open || !game->exit_img)
 	{
 		cleanup_textures(game);
+		exit(1);
 		return (0);
 	}
 	return (1);
@@ -67,6 +69,13 @@ int	init_textures(t_game *game)
 int	init_window_and_textures(t_game *game)
 {
 	game->mlx_ptr = mlx_init();
+	game->wall_img = NULL;
+	game->floor_img = NULL;
+	game->collectible_img = NULL;
+	game->character_img = NULL;
+	game->door_open = NULL;
+	game->door_open = NULL;
+	game->exit_img = NULL;
 	if (!game->mlx_ptr)
 		return (1);
 	if (!init_textures(game))

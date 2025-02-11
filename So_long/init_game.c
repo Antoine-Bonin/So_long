@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:40:54 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 17:48:11 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:39:16 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	check_map_valid(t_game *game, char **map_copy)
 	{
 		ft_putendl_fd("Error\n", 2);
 		free_tab(map_copy);
-		free_tab(game->map);
 		cleanup_textures(game);
 		return (1);
 	}
