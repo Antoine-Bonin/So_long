@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:35:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/11 14:40:23 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:14:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ size_t	init_count(t_game *game)
 	}
 	if (game->count_player != 1 || game->count_exit != 1
 		|| game->count_collectible < 1)
-		return (ft_putendl_fd("Error\n", 2), 1);
+		return (ft_putendl_fd("Error", 2), 1);
 	return (0);
 }
 
@@ -54,7 +54,7 @@ size_t	check_characters(char **tab, size_t lines)
 		{
 			if (ft_strchr(INVALID, tab[y][x]) != NULL)
 			{
-				ft_putendl_fd("Error\n", 2);
+				ft_putendl_fd("Error", 2);
 				return (1);
 			}
 			x++;
@@ -73,12 +73,12 @@ size_t	check_mapping(char **tab, size_t lines)
 	{
 		if (ft_strlen(tab[0]) != ft_strlen(tab[y]))
 		{
-			ft_putendl_fd("Error\n", 2);
+			ft_putendl_fd("Error", 2);
 			return (1);
 		}
 		if (ft_strlen(tab[y]) == lines)
 		{
-			ft_putendl_fd("Error\n", 2);
+			ft_putendl_fd("Error", 2);
 			return (1);
 		}
 		y++;

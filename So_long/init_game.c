@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:40:54 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/11 14:39:16 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:25:59 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ ssize_t	count_lines(const char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putendl_fd("Error\n", 2);
+		ft_putendl_fd("Error", 2);
 		return (0);
 	}
 	lines = 0;
@@ -38,7 +38,7 @@ ssize_t	count_lines(const char *filename)
 	close(fd);
 	if (lines == 0)
 	{
-		ft_putendl_fd("Error\n", 2);
+		ft_putendl_fd("Error", 2);
 		return (-1);
 	}
 	return (lines);
@@ -51,7 +51,7 @@ int	open_file(const char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putendl_fd("Error\n", 2);
+		ft_putendl_fd("Error", 2);
 	}
 	return (fd);
 }
@@ -87,7 +87,7 @@ int	check_map_valid(t_game *game, char **map_copy)
 	if (game->reached_exit == 0
 		|| game->found_collectibles != game->collectibles_remaining)
 	{
-		ft_putendl_fd("Error\n", 2);
+		ft_putendl_fd("Error", 2);
 		free_tab(map_copy);
 		cleanup_textures(game);
 		return (1);

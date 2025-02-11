@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:20:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/11 14:38:45 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:14:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_putendl_fd("Error\n", 2);
+		ft_putendl_fd("Error", 2);
 		return (1);
 	}
 	if (setup_game(&game, av[1]) != 0)

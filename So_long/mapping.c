@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:22:10 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 17:05:01 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:14:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**load_map(int fd, size_t lines)
 	tab = mapping(fd, lines);
 	if (!tab)
 	{
-		ft_putendl_fd("Error\n", 2);
+		ft_putendl_fd("Error", 2);
 		close(fd);
 	}
 	return (tab);

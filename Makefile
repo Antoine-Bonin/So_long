@@ -26,9 +26,9 @@ OBJS := $(patsubst So_long/%.c,$(OBJ_SO_LONG)%.o,$(filter So_long/%.c,$(SRCS))) 
 
 DEPS = $(LIBFT_DIR)ressource/libft.h
 LIBS := -Lminilibx-linux -lmlx_Linux -lX11 -lXext
-all: $(LIBFT) $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS) ./So_long/so_long.h
+$(NAME): $(OBJS) $(LIBFT) ./So_long/so_long.h
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBFT) -o $(NAME)
 
 $(OBJ_SO_LONG)%.o: So_long/%.c $(DEPS)
