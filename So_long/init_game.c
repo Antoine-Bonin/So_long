@@ -6,14 +6,14 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:40:54 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/11 16:25:59 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:34:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/ressource/libft.h"
 #include "../gnl/get_next_line.h"
-#include "so_long.h"
+#include "../libft/ressource/libft.h"
 #include "fcntl.h"
+#include "so_long.h"
 
 ssize_t	count_lines(const char *filename)
 {
@@ -78,6 +78,7 @@ int	init_game(t_game *game, const char *filename)
 		return (1);
 	if (init_window_and_textures(game) != 0)
 		return (1);
+	close(fd);
 	return (0);
 }
 

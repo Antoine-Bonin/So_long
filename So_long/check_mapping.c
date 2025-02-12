@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:35:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/11 16:14:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:15:07 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,6 @@ size_t	check_mapping(char **tab, size_t lines)
 	while (tab[y] && y < lines)
 	{
 		if (ft_strlen(tab[0]) != ft_strlen(tab[y]))
-		{
-			ft_putendl_fd("Error", 2);
-			return (1);
-		}
-		if (ft_strlen(tab[y]) == lines)
 		{
 			ft_putendl_fd("Error", 2);
 			return (1);

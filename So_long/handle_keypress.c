@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:57:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/11 14:41:33 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:05:50 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <X11/keysym.h>
 #include <stdlib.h>
 
-void	move_player(int keysym, t_game *game)
+int	move_player(int keysym, t_game *game)
 {
 	int	old_x;
 	int	old_y;
@@ -25,12 +25,14 @@ void	move_player(int keysym, t_game *game)
 	old_y = game->player_y;
 	if (keysym == XK_w || keysym == XK_Up)
 		game->player_y--;
-	if (keysym == XK_s || keysym == XK_Down)
+	else if (keysym == XK_s || keysym == XK_Down)
 		game->player_y++;
-	if (keysym == XK_a || keysym == XK_Left)
+	else if (keysym == XK_a || keysym == XK_Left)
 		game->player_x--;
-	if (keysym == XK_d || keysym == XK_Right)
+	else if (keysym == XK_d || keysym == XK_Right)
 		game->player_x++;
+	else
+		return (1);
 	if (game->map[game->player_y][game->player_x] == '1'
 		|| (game->map[game->player_y][game->player_x] == 'E'
 			&& game->collectibles_remaining != 0))
@@ -39,7 +41,7 @@ void	move_player(int keysym, t_game *game)
 		game->player_y = old_y;
 		game->total_moves--;
 	}
-	game->total_moves++;
+	return (0);
 }
 
 int	close_check(int keysym, t_game *game)
@@ -56,8 +58,12 @@ int	close_check(int keysym, t_game *game)
 int	handle_keypress(int keysym, t_game *game)
 {
 	close_check(keysym, game);
-	move_player(keysym, game);
-	ft_printf("total number of moves : %d\n", game->total_moves);
+	if (move_player(keysym, game) == 0)
+	{
+		game->total_moves++;
+		draw_map(game);
+		ft_printf("total number of moves : %d\n", game->total_moves);
+	}
 	if (game->map[game->player_y][game->player_x] == 'C')
 	{
 		game->map[game->player_y][game->player_x] = '0';
@@ -72,6 +78,5 @@ int	handle_keypress(int keysym, t_game *game)
 			exit(0);
 		}
 	}
-	draw_map(game);
 	return (0);
 }
