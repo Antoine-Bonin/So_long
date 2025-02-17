@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:35:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/12 17:15:07 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:07:30 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ size_t	init_count(t_game *game)
 	}
 	if (game->count_player != 1 || game->count_exit != 1
 		|| game->count_collectible < 1)
-		return (ft_putendl_fd("Error", 2), 1);
+		return (ft_putendl_fd("Error\nMap must have exactly 1 player, \
+1 exit and at least 1 collectible", 2), 1);
 	return (0);
 }
 
@@ -54,7 +55,7 @@ size_t	check_characters(char **tab, size_t lines)
 		{
 			if (ft_strchr(INVALID, tab[y][x]) != NULL)
 			{
-				ft_putendl_fd("Error", 2);
+				ft_putendl_fd("Error\nInvalid character in map", 2);
 				return (1);
 			}
 			x++;
@@ -73,7 +74,7 @@ size_t	check_mapping(char **tab, size_t lines)
 	{
 		if (ft_strlen(tab[0]) != ft_strlen(tab[y]))
 		{
-			ft_putendl_fd("Error", 2);
+			ft_putendl_fd("Error\nMap must be rectangular", 2);
 			return (1);
 		}
 		y++;
@@ -118,6 +119,5 @@ int	validate_map(t_game *game, size_t lines, int fd)
 		close(fd);
 		return (1);
 	}
-	else
-		return (0);
+	return (0);
 }

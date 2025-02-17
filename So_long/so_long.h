@@ -6,13 +6,22 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:23:10 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/10 17:51:20 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:58:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # define INVALID "23456789abcdefghijklmnopqrstuvwxyzABDFGHIJKLMNOQRSTUVWXYZ "
+
+# ifndef MAX_WIDTH
+#  define MAX_WIDTH 3840
+# endif
+
+# ifndef MAX_HEIGHT
+#  define MAX_HEIGHT 2160
+# endif
+
 # include "unistd.h"
 
 typedef struct s_game

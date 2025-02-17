@@ -2,7 +2,7 @@
 
 NAME := so_long
 CC := cc
-CFLAGS := -Werror -Wextra -Wall -g3 
+CFLAGS := -Werror -Wextra -Wall -g3 -DMAX_WIDTH=3840 -DMAX_HEIGHT=2160
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
 

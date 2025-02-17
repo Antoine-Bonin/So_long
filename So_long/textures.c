@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:13:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/11 16:14:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:53:02 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	init_window_and_textures(t_game *game)
 		return (1);
 	if (!init_textures(game))
 	{
-		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Error\nFailed to load textures", 2);
 		cleanup_textures(game);
 		return (1);
 	}
