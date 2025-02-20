@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:20:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/17 18:06:26 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:54:46 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int	main(int ac, char **av)
 	if (check_extension(av[1]) != 0)
 		return (1);
 	if (setup_game(&game, av[1]) != 0)
+	{
+		handle_destroy(&game);
 		return (1);
+	}
 	if (check_map_size(&game) != 0)
 	{
 		handle_destroy(&game);
