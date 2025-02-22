@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 00:20:15 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/19 18:54:46 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:35:51 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	check_extension(char *filename)
 int	handle_destroy(t_game *game)
 {
 	cleanup_textures(game);
+	free(game);
 	ft_printf("You left the game");
-	exit(0);
-	return (0);
+	exit(1);
 }
 
 int	check_map_size(t_game *game)
@@ -61,29 +61,29 @@ int	check_map_size(t_game *game)
 
 int	main(int ac, char **av)
 {
-	t_game	game;
+	t_game	*game;
 
+	game = malloc(sizeof(t_game));
+	if (!game)
+		return (1);
+	ft_memset(game, 0, sizeof(t_game));
 	if (ac != 2)
 	{
 		ft_putendl_fd("Error\nUsage: ./so_long [map.ber]", 2);
+		free(game);
 		return (1);
 	}
 	if (check_extension(av[1]) != 0)
-		return (1);
-	if (setup_game(&game, av[1]) != 0)
+		return (free(game), 1);
+	if ((setup_game(game, av[1]) != 0) || (check_map_size(game) != 0))
 	{
-		handle_destroy(&game);
-		return (1);
+		cleanup_textures(game);
+		return (free(game), 1);
 	}
-	if (check_map_size(&game) != 0)
-	{
-		handle_destroy(&game);
-		return (1);
-	}
-	draw_map(&game);
-	mlx_hook(game.win_ptr, KeyPress, KeyPressMask, handle_keypress, &game);
-	mlx_hook(game.win_ptr, DestroyNotify, StructureNotifyMask, handle_destroy,
-		&game);
-	mlx_loop(game.mlx_ptr);
+	draw_map(game);
+	mlx_hook(game->win_ptr, KeyPress, KeyPressMask, handle_keypress, game);
+	mlx_hook(game->win_ptr, DestroyNotify, StructureNotifyMask, handle_destroy,
+		game);
+	mlx_loop(game->mlx_ptr);
 	return (0);
 }

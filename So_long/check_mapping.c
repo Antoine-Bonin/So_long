@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:35:36 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/17 18:07:30 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:31:57 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ int	validate_map(t_game *game, size_t lines, int fd)
 			+ init_count(game) + check_wall_top(game) + check_wall_bot(game,
 				lines) + check_wall(game, lines)) != 0)
 	{
-		free_tab(game->map);
 		close(fd);
 		return (1);
 	}

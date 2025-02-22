@@ -6,17 +6,19 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 19:13:04 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/17 17:53:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:37:54 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minilibx-linux/mlx.h"
 #include "../libft/ressource/libft.h"
+#include "../minilibx-linux/mlx.h"
 #include "so_long.h"
 #include <stdlib.h>
 
-int	cleanup_textures(t_game *game)
+void	cleanup_textures(t_game *game)
 {
+	if (!game)
+		return ;
 	if (game->wall_img)
 		mlx_destroy_image(game->mlx_ptr, game->wall_img);
 	if (game->floor_img)
@@ -36,8 +38,8 @@ int	cleanup_textures(t_game *game)
 		mlx_destroy_display(game->mlx_ptr);
 		free(game->mlx_ptr);
 	}
-	free_tab(game->map);
-	return (1);
+	if (game->map)
+		free_tab(game->map);
 }
 
 int	init_textures(t_game *game)
@@ -60,8 +62,9 @@ int	init_textures(t_game *game)
 		|| !game->character_img || !game->door_open || !game->exit_img)
 	{
 		cleanup_textures(game);
-		exit(1);
-		return (0);
+		free(game);
+		ft_putendl_fd("Error\nloading textures", 2);
+		exit(0);
 	}
 	return (1);
 }
@@ -69,13 +72,6 @@ int	init_textures(t_game *game)
 int	init_window_and_textures(t_game *game)
 {
 	game->mlx_ptr = mlx_init();
-	game->wall_img = NULL;
-	game->floor_img = NULL;
-	game->collectible_img = NULL;
-	game->character_img = NULL;
-	game->door_open = NULL;
-	game->door_open = NULL;
-	game->exit_img = NULL;
 	if (!game->mlx_ptr)
 		return (1);
 	if (!init_textures(game))

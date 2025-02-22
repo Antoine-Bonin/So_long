@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 17:40:54 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/17 17:55:44 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:46:08 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int	init_game(t_game *game, const char *filename)
 		return (-1);
 	game->map = load_map(fd, count_lines(filename));
 	if (!game->map)
+	{
+		ft_putendl_fd("Error\nLoading map", 2);
 		return (1);
+	}
 	game->map_width = ft_strlen(game->map[0]);
 	game->map_height = count_lines(filename);
 	game->collectibles_remaining = 0;
@@ -76,9 +79,9 @@ int	init_game(t_game *game, const char *filename)
 	game->found_collectibles = 0;
 	if (validate_map(game, count_lines(filename), fd) != 0)
 		return (1);
+	close(fd);
 	if (init_window_and_textures(game) != 0)
 		return (1);
-	close(fd);
 	return (0);
 }
 
@@ -90,7 +93,6 @@ int	check_map_valid(t_game *game, char **map_copy)
 	{
 		ft_putendl_fd("Error\nNo possible path", 2);
 		free_tab(map_copy);
-		cleanup_textures(game);
 		return (1);
 	}
 	free_tab(map_copy);
@@ -106,8 +108,13 @@ int	setup_game(t_game *game, char *map_path)
 	init_values(game);
 	map_copy = copy_map(game->map, game->map_height);
 	if (!map_copy)
+	{
+		ft_putendl_fd("Error\nCopying map", 2);
 		return (1);
+	}
 	if (check_map_valid(game, map_copy) != 0)
+	{
 		return (1);
+	}
 	return (0);
 }

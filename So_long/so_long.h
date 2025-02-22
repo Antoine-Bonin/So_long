@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:23:10 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/17 17:58:02 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:07:14 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		draw_map(t_game *game);
 int			handle_keypress(int keysym, t_game *game);
 void		init_values(t_game *game);
 int			init_window_and_textures(t_game *game);
-int			cleanup_textures(t_game *game);
+void		cleanup_textures(t_game *game);
 
 /*************************parsing*********************************/
 

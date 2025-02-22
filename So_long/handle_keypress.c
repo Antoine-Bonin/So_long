@@ -6,7 +6,7 @@
 /*   By: antbonin <antbonin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 18:57:51 by antbonin          #+#    #+#             */
-/*   Updated: 2025/02/12 14:05:50 by antbonin         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:36:27 by antbonin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	close_check(int keysym, t_game *game)
 	if (keysym == XK_Escape || keysym == 17)
 	{
 		cleanup_textures(game);
+		free(game);
 		ft_printf("You left the game\n");
 		exit(0);
 	}
@@ -74,6 +75,7 @@ int	handle_keypress(int keysym, t_game *game)
 		if (game->map[game->player_y][game->player_x] == 'E')
 		{
 			cleanup_textures(game);
+			free(game);
 			ft_printf("You won\n");
 			exit(0);
 		}
