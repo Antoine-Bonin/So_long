@@ -5,6 +5,8 @@ CC := cc
 CFLAGS := -Werror -Wextra -Wall -g3 -DMAX_WIDTH=3840 -DMAX_HEIGHT=2160
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
+MINILIBX = $(MINILIBX_DIR)libmlx.a
+MINILIBX_DIR = minilibx-linux/
 
 OBJ_DIR = obj/
 OBJ_SO_LONG = $(OBJ_DIR)So_long/
@@ -28,8 +30,8 @@ DEPS = $(LIBFT_DIR)ressource/libft.h
 LIBS := -Lminilibx-linux -lmlx_Linux -lX11 -lXext
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) ./So_long/so_long.h
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBFT) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) ./So_long/so_long.h $(MINILIBX)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBFT) $(MINILIBX) -o $(NAME)
 
 $(OBJ_SO_LONG)%.o: So_long/%.c $(DEPS)
 	@mkdir -p $(OBJ_SO_LONG)
@@ -42,13 +44,18 @@ $(OBJ_GNL)%.o: gnl/%.c
 $(LIBFT): $(LIBFT_DIR)libft/*.c $(DEPS)
 	@make -C $(LIBFT_DIR) --no-print-directory
 
+$(MINILIBX): $(MINILIBX_DIR)*.c $(MINILIBX_DIR)mlx.h
+	@make -C $(MINILIBX_DIR) --no-print-directory
+
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make clean -C $(LIBFT_DIR) --no-print-directory
+	@make clean -C $(MINILIBX_DIR) --no-print-directory
 
 fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C $(LIBFT_DIR) --no-print-directory
+	@make clean -C $(MINILIBX_DIR) --no-print-directory
 
 re: fclean all
 
