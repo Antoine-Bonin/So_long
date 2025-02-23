@@ -14,7 +14,7 @@ SRCS := So_long/draw_map.c \
 	So_long/handle_keypress.c \
 	So_long/mapping.c \
 	So_long/check_mapping.c \
-	So_long/so_long.c \
+	So_long/main.c \
 	So_long/textures.c \
 	So_long/check_wall.c \
 	So_long/init_game.c \
